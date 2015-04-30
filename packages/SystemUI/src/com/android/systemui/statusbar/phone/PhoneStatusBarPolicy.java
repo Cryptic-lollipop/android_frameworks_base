@@ -78,7 +78,11 @@ public class PhoneStatusBarPolicy implements Callback {
     private final AlarmManager mAlarmManager;
     private final UserInfoController mUserInfoController;
     private boolean mAlarmIconVisible;
+<<<<<<< HEAD
     private final SuController mSuController;
+=======
+    private boolean mSuIndicatorVisible;
+>>>>>>> 77c8f9f... add su switch to settings
 
     // Assume it's all good unless we hear otherwise.  We don't always seem
     // to get broadcasts that it *is* there.
@@ -184,18 +188,31 @@ public class PhoneStatusBarPolicy implements Callback {
         mService.setIconVisibility(SLOT_SU, false);
         mSuController.addCallback(mSuCallback);
 
+<<<<<<< HEAD
         // managed profile
         mService.setIcon(SLOT_MANAGED_PROFILE, R.drawable.stat_sys_managed_profile_status, 0,
                 mContext.getString(R.string.accessibility_managed_profile));
         mService.setIconVisibility(SLOT_MANAGED_PROFILE, false);
+=======
+        mSettingsObserver.onChange(true);
+        mContext.getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.SHOW_ALARM_ICON),
+                false, mSettingsObserver);
+        mContext.getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.SHOW_SU_INDICATOR),
+                false, mSettingsObserver);
+>>>>>>> 77c8f9f... add su switch to settings
     }
 
-    private ContentObserver mAlarmIconObserver = new ContentObserver(null) {
+    private ContentObserver mSettingsObserver = new ContentObserver(null) {
         @Override
         public void onChange(boolean selfChange, Uri uri) {
             mAlarmIconVisible = Settings.System.getInt(mContext.getContentResolver(),
                     Settings.System.SHOW_ALARM_ICON, 1) == 1;
+            mSuIndicatorVisible = Settings.System.getInt(mContext.getContentResolver(),	
+                    Settings.System.SHOW_SU_INDICATOR, 1) == 1;
             updateAlarm();
+            updateSu();
         }
 
         @Override
@@ -422,7 +439,8 @@ public class PhoneStatusBarPolicy implements Callback {
     };
 
     private void updateSu() {
-        mService.setIconVisibility(SLOT_SU, mSuController.hasActiveSessions());
+         mService.setIconVisibility(SLOT_SU, mSuController.hasActiveSessions() && mSuIndicatorVisible
+);
     }
 
     private final CastController.Callback mCastCallback = new CastController.Callback() {
