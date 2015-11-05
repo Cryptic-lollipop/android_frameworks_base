@@ -155,10 +155,13 @@ public class PhoneStatusBarPolicy implements Callback {
         // Alarm clock
         mService.setIcon(SLOT_ALARM_CLOCK, R.drawable.stat_sys_alarm, 0, null);
         mService.setIconVisibility(SLOT_ALARM_CLOCK, false);
-        mAlarmIconObserver.onChange(true);
+        mSettingsObserver.onChange(true);
         mContext.getContentResolver().registerContentObserver(
                 Settings.System.getUriFor(Settings.System.SHOW_ALARM_ICON),
-                false, mAlarmIconObserver);
+                false, mSettingsObserver);
+        mContext.getContentResolver().registerContentObserver(
+                Settings.System.getUriFor(Settings.System.SHOW_SU_INDICATOR),
+                false, mSettingsObserver);
 
         // zen
         mService.setIcon(SLOT_ZEN, R.drawable.stat_sys_zen_important, 0, null);
@@ -189,13 +192,6 @@ public class PhoneStatusBarPolicy implements Callback {
         mService.setIcon(SLOT_MANAGED_PROFILE, R.drawable.stat_sys_managed_profile_status, 0,
                 mContext.getString(R.string.accessibility_managed_profile));
         mService.setIconVisibility(SLOT_MANAGED_PROFILE, false);
-        mSettingsObserver.onChange(true);
-        mContext.getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.SHOW_ALARM_ICON),
-                false, mSettingsObserver);
-        mContext.getContentResolver().registerContentObserver(
-                Settings.System.getUriFor(Settings.System.SHOW_SU_INDICATOR),
-                false, mSettingsObserver);
     }
 
     private ContentObserver mSettingsObserver = new ContentObserver(null) {
