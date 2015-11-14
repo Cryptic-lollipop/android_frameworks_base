@@ -200,6 +200,7 @@ public class QsTuner extends Fragment implements Callback {
         else if (spec.equals("location")) return R.string.quick_settings_location_label;
         else if (spec.equals("cast")) return R.string.quick_settings_cast_title;
         else if (spec.equals("hotspot")) return R.string.quick_settings_hotspot_label;
+        else if (spec.equals("expanded_desktop")) return R.string.quick_settings_expanded_desktop_label;
         return 0;
     }
 
@@ -265,7 +266,7 @@ public class QsTuner extends Fragment implements Callback {
                 }
             }
             String[] defaults =
-                getContext().getString(R.string.quick_settings_tiles_default).split(",");
+                getContext().getString(R.string.quick_settings_tiles_available).split(",");
             final String[] available = new String[defaults.length + 1
                                                   - (tiles.size() - numBroadcast)];
             final String[] availableTiles = new String[available.length];
@@ -443,6 +444,7 @@ public class QsTuner extends Fragment implements Callback {
             else if (mSpec.equals("location")) return R.drawable.ic_signal_location_enable;
             else if (mSpec.equals("cast")) return R.drawable.ic_qs_cast_on;
             else if (mSpec.equals("hotspot")) return R.drawable.ic_hotspot_enable;
+            else if (mSpec.equals("expanded_desktop")) return R.drawable.ic_qs_expanded_desktop_off;
             return R.drawable.android;
         }
 

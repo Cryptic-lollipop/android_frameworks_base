@@ -235,6 +235,8 @@ public class QSPanel extends ViewGroup {
     }
 
     public void refreshAllTiles() {
+        mUseMainTiles = Settings.Secure.getIntForUser(getContext().getContentResolver(),
+                Settings.Secure.QS_USE_MAIN_TILES, 1, UserHandle.USER_CURRENT) == 1; 
         for (TileRecord r : mRecords) {
             r.tile.refreshState();
         }
