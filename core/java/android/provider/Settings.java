@@ -6448,6 +6448,12 @@ public final class Settings {
                 "camera_double_tap_power_gesture_disabled";
 
 
+        /** Whether to vibrate when quick settings tile is pressed.
+          *
+          * @hide
+          */
+         public static final String QUICK_SETTINGS_TILES_VIBRATE = "quick_settings_vibrate";
+
         /**
          * This are the settings to be backed up.
          *
